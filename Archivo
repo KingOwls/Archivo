@@ -1,0 +1,49 @@
+import json
+data = {
+    '001':{    
+        'id':  '001', 
+        'nombre': 'Pepe'}
+}
+
+
+
+#with open("demo.json", "w") as archivo:
+#   json.dump(data, archivo)
+
+with open("demo.json", "w") as  archivo:
+    json.dump(data, archivo, indent =2)
+
+with open("demo.json", "r") as leer:
+    print(type(json.load(leer)))
+
+data = {
+    '002':{    
+        'id':  '002', 
+        'nombre': 'Carlos'}
+}
+
+with open("demo.json", "r+") as  leerEscribir:
+    dataF =json.load(leerEscribir)
+    dataF.update(data)
+    leerEscribir.seek(0)
+    json.dump(dataF, leerEscribir, indent =2)
+
+with open("demo.json", "r+") as delInfo:
+    dataFile =json.load(delInfo)
+    if dataFile.get('002', False) == False:
+        print("no esta")
+    else:
+#        idx = list(dataFile).index("002")
+#        for i, elemento in enumerate(dataFile):
+#            if elemento['id'] == '002' :
+#                dataFile.pop(i)
+        dataFile.pop('002')
+        reemplazar = open("demo.json", "w")
+        json.dump(dataFile, reemplazar, indent =2)
+        reemplazar.close()
+        print(dataFile)
+
+
+#print(archivo.name)
+#print(archivo.closed)
+#print(archivo.encoding)
